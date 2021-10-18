@@ -5,6 +5,61 @@
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript">
+      $(function () {
+        $(".imgpr").click(function () {
+          var _this = $(this) //将当前的pimg元素作为_this传入函数
+          imgShow("#outerdiv", "#innerdiv", "#bigimg", _this)
+        })
+      })
+      function imgShow(outerdiv, innerdiv, bigimg, _this) {
+        var src = _this.attr("src") //获取当前点击的pimg元素中的src属性
+        $(bigimg).attr("src", src) //设置#bigimg元素的src属性
+        /*获取当前点击图片的真实大小，并显示弹出层及大图*/
+        $("<img/>")
+          .attr("src", src)
+          .load(function () {
+            console.log(window.innerWidth)
+            console.log(document.body.clientWidth)
+            console.log($(window).width())
+            console.log(window.screen.width)
+            var windowW = window.innerWidth //获取当前窗口宽度
+            var windowH = window.innerHeight //获取当前窗口高度
+            var realWidth = this.width //获取图片真实宽度
+            var realHeight = this.height //获取图片真实高度
+            var imgWidth, imgHeight
+            var scale = 0.8 //缩放尺寸，当图片真实宽度和高度大于窗口宽度和高度时进行缩放
+            if (realHeight > windowH * scale) {
+              //判断图片高度
+              imgHeight = windowH * scale //如大于窗口高度，图片高度进行缩放
+              imgWidth = (imgHeight / realHeight) * realWidth //等比例缩放宽度
+              if (imgWidth > windowW * scale) {
+                //如宽度扔大于窗口宽度
+                imgWidth = windowW * scale //再对宽度进行缩放
+              }
+            } else if (realWidth > windowW * scale) {
+              //如图片高度合适，判断图片宽度
+              imgWidth = windowW * scale //如大于窗口宽度，图片宽度进行缩放
+              imgHeight = (imgWidth / realWidth) * realHeight //等比例缩放高度
+            } else {
+              //如果图片真实高度和宽度都符合要求，高宽不变
+              imgWidth = realWidth
+              imgHeight = realHeight
+            }
+            $(bigimg).css("width", imgWidth) //以最终的宽度对图片缩放
+            var w = (windowW - imgWidth) / 2 //计算图片与窗口左边距
+            var h = (windowH - imgHeight) / 2 //计算图片与窗口上边距
+            $(innerdiv).css({ top: h, left: w }) //设置#innerdiv的top和left属性
+            $(outerdiv).fadeIn("fast") //淡入显示#outerdiv及.pimg
+          })
+        $(outerdiv).click(function () {
+          //再次点击淡出消失弹出层
+          $(this).fadeOut("fast")
+        })
+      }
+    </script>
     <style>
       h1 {
         margin: 0;
@@ -14,6 +69,9 @@
         min-width: 968px;
         margin: 0;
         background: #e6e6e6;
+      }
+      p.pr {
+        text-indent: 2rem;
       }
 
       .container {
@@ -63,6 +121,9 @@
         color: rgb(128, 128, 128);
         font-size: 0.75rem;
         text-decoration: blink;
+      }
+      .imgpr {
+        width: 24.5%;
       }
     </style>
   </head>
@@ -130,7 +191,10 @@
             <li>完善接口文档和后台对接，调用接口完成数据和逻辑的展示；</li>
             <li>组件化开发，提高代码的复用性；</li>
           </ol>
-          <h3>2017/08 -- 2019/10 北京五木服装有限责任公司 网络管理员</h3>
+          <h3>
+            2017/08 --
+            2019/10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;北京五木服装有限责任公司&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;网络管理员
+          </h3>
           <p><b>主要工作：</b></p>
           <ol>
             <li>
@@ -151,6 +215,49 @@
         </div>
       </div>
       <div class="bd">
+        <div class="title">项目经历</div>
+        <div class="content">
+          <h3>2019/10 -- 至今&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;育果医生</h3>
+          <p class="pr">
+            育果医生是中国领先的高端私立就诊折扣平台；是医疗健康领域唯一准确的医生排班信息平台；是一
+            款集医疗机构、保险机构，向高端人群提供诊疗服务、健康管理为一体的医疗类应用
+          </p>
+          <p class="pr">
+            负责育果医生移动端页面开发，主要负责模块是推荐医生页面，推荐医院页面，搜索页面，医生信息
+            页面。主要应用 vue，vueRouter，vuecli，webpack，vant 的 ui 框架。
+          </p>
+          <p>
+            <img src="./recdoc.jpg" alt="推荐医生" class="imgpr" />
+            <img src="./rechos.jpg" alt="推荐医院" class="imgpr" />
+            <img src="./search.jpg" alt="搜索" class="imgpr" />
+            <img src="./docinfo.jpg" alt="医生信息" class="imgpr" />
+          </p>
+          <h3>
+            2019/10 --
+            至今&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;育果医生后台管理系统
+          </h3>
+          <p class="pr">为育果医生提供后台管理支持</p>
+          <p class="pr">
+            主要使用用 BootStrap，jquery，webpack，element ui
+            框架开发响应式后台管理页面，实现添加医
+            院、添加医生信息操作页面、上传图片页面，医生排班编辑页面，福利信息添加录入页面、保险信息添加
+            页面。
+          </p>
+          <h3>
+            2019/10 -- 2019/10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;纽曼官网
+          </h3>
+          <p class="pr">兼职开发宣传页面</p>
+          <p class="pr">
+            纽曼电器官网页面，包括首页、关于我们、新闻页面、产品中心页面、联系我们页面。
+          </p>
+          <p class="pr">
+            demo 地址：<a href="https://fengzhenchang.github.io/Newman/"
+              >https://fengzhenchang.github.io/Newman/</a
+            >
+          </p>
+        </div>
+      </div>
+      <div class="bd">
         <div class="title">自我评价</div>
         <div class="content">
           工作认真、仔细、有耐心、有效率；有逻辑思维能力，分析能力；<br />
@@ -163,6 +270,23 @@
           href="./%E5%86%AF%E6%8C%AF%E6%98%8C%E7%AE%80%E5%8E%86-%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91.pdf"
           >下载简历</a
         >
+      </div>
+    </div>
+    <div
+      id="outerdiv"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        display: none;
+      "
+    >
+      <div id="innerdiv" style="position: absolute">
+        <img id="bigimg" style="border: 5px solid #fff" src="" />
       </div>
     </div>
   </body>
